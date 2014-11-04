@@ -1,0 +1,10 @@
+app/node_modules
+node_modules
+
+.idea/.name
+
+.idea/encodings.xml
+
+*.xml
+
+.idea/node-ardx.iml
