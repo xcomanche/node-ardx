@@ -10,11 +10,11 @@ myBoard.on("ready", function() {
     myBoard.digitalWrite(10, 1);
     setTimeout(function() {
         lcd.clear().cursor(0, 0);
-        lcd.clear().print("Welcome!");
+        lcd.clear().print("Authorise");
         lcd.cursor(1, 0);
-        lcd.print("Seconds: 0");
-        printSeconds.call(this);
-        printString('This is very long text to display on the our small screen!', 400);
+        lcd.print("your self");
+        //printSeconds.call(this);
+        //printString('This is very long text to display on the our small screen!', 400);
     }, 50);
 
   this.repl.inject({

@@ -2,7 +2,7 @@ var j5 = require("johnny-five");
 var board = new j5.Board();
 
 board.on("ready", function() {
-  var ledPins = [2,3,4,5,6,7,8,9];
+  var ledPins = [13, 12, 11];
   var leds = new j5.Leds(ledPins);
 
   function oneAfterAnother() {
@@ -14,12 +14,12 @@ board.on("ready", function() {
       board.wait(delay,function(){
         console.log(this.counter + " on")
         leds[this.counter].on();
-      })
+      });
       board.wait(delay + 200,function(){
         console.log(this.counter + " off")
         leds[this.counter].off();
         this.counter = (this.counter + 1) % leds.length;
-      })
+      });
       delay += 500;
     }
   }
