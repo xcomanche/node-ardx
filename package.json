@@ -6,9 +6,13 @@
   "scripts": {
     "start": "node app.js"
   },
-  "keywords": ["arduino","tutorial","workshop"],
+  "keywords": [
+    "arduino",
+    "tutorial",
+    "workshop"
+  ],
   "author": {
-   "name":"Anna Gerber"
+    "name": "Anna Gerber"
   },
   "repository": {
     "type": "git",
@@ -17,10 +21,11 @@
   "bugs": "http://github.com/AnnaGerber/node-ardx/issues",
   "license": "CC-BY-SA",
   "dependencies": {
+    "app": "*",
+    "ejs": "*",
     "express": "3.4.0",
     "johnny-five": "~0.7.3",
     "markedejs": "0.1.0",
-    "ejs": "*",
-    "app": "*"
+    "weak-map": "^1.0.5"
   }
 }
