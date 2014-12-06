@@ -26,6 +26,7 @@
     "express": "3.4.0",
     "johnny-five": "~0.7.3",
     "markedejs": "0.1.0",
-    "weak-map": "^1.0.5"
+    "weak-map": "^1.0.5",
+    "zmq": "^2.8.0"
   }
 }
