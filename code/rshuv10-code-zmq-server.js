@@ -19,50 +19,57 @@ myBoard.on("ready", function() {
         var responseObj = JSON.parse(resp);
 
         if (responseObj['init']) {
-            printObjRecv(responseObj);
-            if (responseObj['initObject'] in j5) {
-                devices[responseObj['id']] = j5[responseObj['initObject']](responseObj['initParams']);
-                responseObj['status'] = 3;
-                response(responseObj);
-            } else {
-                console.log('ERROR: Such Object DOES NOT EXISTS!');
-                console.log('-----------------------');
-                responseObj['status'] = 5;
-                responseObj['error'] = 'Object does not exist';
-                response(responseObj);
-            }
-
+            initObject(responseObj);
         }
 
         if (responseObj['command']) {
-            responseObj['params'] = (responseObj['params']) ? responseObj['params'] : '';
-            printDevRecv(responseObj);
-
-            if (devices[responseObj['id']]) {
-
-                if (devices[responseObj['id']][responseObj['command']]) {
-                    devices[responseObj['id']][responseObj['command']].apply(devices[responseObj['id']],
-                                                                                 parseDevParams(responseObj['params']));
-                    responseObj['status'] = 3;
-                    response(responseObj);
-                } else {
-                    console.log('ERROR: DEVICE: ' + responseObj['id']
-                    + ' DOES NOT HAVE COMMAND: '  + responseObj['command']);
-                    console.log('-----------------------');
-                    responseObj['status'] = 5;
-                    responseObj['error'] = 'Command does not exist';
-                    response(responseObj);
-                }
-            } else {
-                console.log('ERROR: Device: ' + responseObj['id'] + ' DOES NOT EXISTS!');
-                console.log('-----------------------');
-                responseObj['status'] = 5;
-                responseObj['error'] = 'Device does not exist';
-                response(responseObj);
-            }
+            commandObject(responseObj);
         }
     });
 });
+
+function initObject(responseObj) {
+    printObjRecv(responseObj);
+    if (responseObj['initObject'] in j5) {
+        devices[responseObj['id']] = j5[responseObj['initObject']](responseObj['initParams']);
+        responseObj['status'] = 3;
+        response(responseObj);
+    } else {
+        console.log('ERROR: Such Object DOES NOT EXISTS!');
+        console.log('-----------------------');
+        responseObj['status'] = 5;
+        responseObj['error'] = 'Object does not exist';
+        response(responseObj);
+    }
+}
+
+function commandObject(responseObj) {
+    responseObj['params'] = (responseObj['params']) ? responseObj['params'] : '';
+    printDevRecv(responseObj);
+
+    if (devices[responseObj['id']]) {
+
+        if (devices[responseObj['id']][responseObj['command']]) {
+            devices[responseObj['id']][responseObj['command']].apply(devices[responseObj['id']],
+                parseDevParams(responseObj['params']));
+            responseObj['status'] = 3;
+            response(responseObj);
+        } else {
+            console.log('ERROR: DEVICE: ' + responseObj['id']
+            + ' DOES NOT HAVE COMMAND: '  + responseObj['command']);
+            console.log('-----------------------');
+            responseObj['status'] = 5;
+            responseObj['error'] = 'Command does not exist';
+            response(responseObj);
+        }
+    } else {
+        console.log('ERROR: Device: ' + responseObj['id'] + ' DOES NOT EXISTS!');
+        console.log('-----------------------');
+        responseObj['status'] = 5;
+        responseObj['error'] = 'Device does not exist';
+        response(responseObj);
+    }
+}
 
 function printObjRecv(responseObj) {
     console.log('New Device Initialized!');
