@@ -54,6 +54,7 @@ function initEventListiners(device, responseObj) {
                 console.log('For device: ' + responseObj['id'] + '. Fired event: ' + event + '!');
                 responseObj['status'] = 6;
                 responseObj['event'] = event;
+                responseObj['timestamp'] = new Date().getTime();
                 response(responseObj);
             });
             console.log('For device: ' + responseObj['id'] + '. Registered event: ' + event + '!');
