@@ -26,12 +26,14 @@ myBoard.on("ready", function() {
             commandObject(responseObj);
         }
     });
+
 });
 
 function initObject(responseObj) {
     printObjRecv(responseObj);
     if (responseObj['initObject'] in j5) {
         devices[responseObj['id']] = j5[responseObj['initObject']](responseObj['initParams']);
+        initEventListiners(devices[responseObj['id']], responseObj);
         responseObj['status'] = 3;
         response(responseObj);
     } else {
@@ -40,6 +42,22 @@ function initObject(responseObj) {
         responseObj['status'] = 5;
         responseObj['error'] = 'Object does not exist';
         response(responseObj);
+    }
+}
+
+function initEventListiners(device, responseObj) {
+    var events = responseObj['initEvents'];
+
+    if (events.length > 0) {
+        events.forEach(function(event) {
+            device.on(event, function () {
+                console.log('For device: ' + responseObj['id'] + '. Fired event: ' + event + '!');
+                responseObj['status'] = 6;
+                responseObj['event'] = event;
+                response(responseObj);
+            });
+            console.log('For device: ' + responseObj['id'] + '. Registered event: ' + event + '!');
+        });
     }
 }
 
