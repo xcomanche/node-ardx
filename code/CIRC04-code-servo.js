@@ -12,12 +12,9 @@ board.on("ready", function() {
   });
 
   
-  myServo.sweep();
+  myServo.center();
 
-  this.wait(5000, function(){
-    myServo.stop();
-    myServo.center();
-  });
+
   
 
 });
